@@ -22,10 +22,5 @@
   stat:
     path: /var/run/reboot-required
   register: stat_result
-
-- name: Query restart required
-  stat:
-    path: /var/run/reboot-required
-  register: stat_result
   changed_when: stat_result.stat.exists
   notify: reboot

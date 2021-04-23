@@ -19,11 +19,6 @@
     upgrade: safe
   become: true
 
-- name: apt upgrade distribution
-  apt:
-    upgrade: dist
-  become: true
-
 - name: apt autoclean
   apt:
     autoremove: true
