@@ -1,0 +1,9 @@
+galaxy_info:
+  role_name: ubuntu-common
+  author: elgeeko1
+  description: "Common package management and configuration for Ubuntu servers."
+  license: MIT
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
