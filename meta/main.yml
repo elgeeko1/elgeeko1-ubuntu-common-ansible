@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: ubuntu-common
+  role_name: elgeeko1-ubuntu-common-ansible
   author: elgeeko1
   description: "Common package management and configuration for Ubuntu servers."
   license: MIT
