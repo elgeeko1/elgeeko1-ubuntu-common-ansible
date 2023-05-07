@@ -1,4 +1,11 @@
 ---
+- name: Install tzdata
+  ansible.builtin.apt:
+    pkg:
+      - tzdata
+    state: latest
+  become: true
+ 
 - name: Set timezone
   community.general.timezone:
     name: "{{ ubuntu_timezone }}"

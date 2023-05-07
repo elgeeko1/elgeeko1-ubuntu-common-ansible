@@ -13,14 +13,17 @@
 - name: apt update
   ansible.builtin.import_tasks: apt-update.yml
 
-- name: pip update
-  ansible.builtin.import_tasks: pip-update.yml
+- name: python update
+  ansible.builtin.import_tasks: python.yml
 
-- name: install Ansible prerequisites
+- name: Install Ansible prerequisites
   ansible.builtin.import_tasks: ansible.yml
 
-- name: Configure login
-  ansible.builtin.import_tasks: login.yml
+- name: Configure admin users
+  ansible.builtin.import_tasks: users-admin.yml
+
+- name: Configure message of the day (motd)
+  ansible.builtin.import_tasks: login-motd.yml
 
 - name: Configure timezone and ntp
   ansible.builtin.import_tasks: time.yml

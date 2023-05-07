@@ -19,10 +19,12 @@
 
 # enable ansible unzip module, as well as embedded unzip
 # such as get_url
-- name: Instal unzip
+- name: Install compression & download tools
   ansible.builtin.apt:
     pkg:
       - unzip
       - gzip
+      - curl
+      - wget
     state: latest
   become: true
