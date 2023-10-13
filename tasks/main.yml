@@ -33,4 +33,9 @@
     path: /var/run/reboot-required
   register: stat_result
   changed_when: stat_result.stat.exists
-  notify: reboot
+
+- name: Restart system
+  ansible.builtin.reboot:
+    msg: "Ansible reboot"
+  become: true
+  when: stat_result.stat.exists
