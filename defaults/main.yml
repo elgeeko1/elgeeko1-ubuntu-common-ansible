@@ -3,3 +3,6 @@ ubuntu_dns_quad9: false
 
 # Ubuntu timezone
 ubuntu_timezone: America/Los_Angeles
+
+# Install and enable NTP service?
+ubuntu_ntp_enable: true
