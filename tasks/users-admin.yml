@@ -8,7 +8,8 @@
 
 - name: Add user {{ ansible_user }} to password-less sudousers
   ansible.builtin.lineinfile:
-    path: /etc/sudoers
+    path: /etc/sudoers.d/{{ ansible_user }}
     state: present
     line: "{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL"
+    create: true
   become: true
