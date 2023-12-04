@@ -1,5 +1,8 @@
-# use Quad9 as the system (resolv) resolver?
+# deploy Quad9 as the system (resolv) resolver?
 ubuntu_dns_quad9: false
+
+# deploy default system resolv.conf ?
+ubuntu_dns_system: false
 
 # Ubuntu timezone
 ubuntu_timezone: America/Los_Angeles

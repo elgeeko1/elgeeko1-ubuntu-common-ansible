@@ -7,8 +7,10 @@
   become: true
 
 - name: Configure DNS resolution
-  ansible.builtin.include_tasks: dns-quad9.yml
-  when: ubuntu_dns_quad9 | default(false) | bool
+  ansible.builtin.include_tasks: resolvconf.yml
+  when:
+    - (ubuntu_dns_quad9 | default(false) | bool) or
+      (ubuntu_dns_system | default(false) | bool)
 
 - name: apt update
   ansible.builtin.import_tasks: apt-update.yml
