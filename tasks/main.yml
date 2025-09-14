@@ -7,8 +7,11 @@
 # This file contains portions from Jeff C. Jensen under MIT 
 # and modifications by Xronos Inc. under BSD-3-Clause.
 ---
-- name: Configure cache directory
+- name: Configure user cache directory
   ansible.builtin.import_tasks: filesystem-cache.yml
+
+- name: Configure user SSH directory
+  ansible.builtin.import_tasks: filesystem-ssh.yml
 
 - name: apt update cache
   become: true

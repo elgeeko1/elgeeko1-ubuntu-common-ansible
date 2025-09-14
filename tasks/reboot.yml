@@ -19,5 +19,6 @@
   when:
     - _stat_result.stat.exists
     - inventory_hostname != "localhost"
+    - (ansible_connection | default('smart')) != 'local'
   become: true
   ansible.builtin.reboot:
