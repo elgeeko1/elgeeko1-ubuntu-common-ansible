@@ -1,0 +1,12 @@
+---
+- name: Stat ~/.cache
+  register: _cache_folder_query
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.cache"
+
+- name: Create ~/.cache
+  when: not _cache_folder_query.stat.exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.cache"
+    state: directory
+    mode: u=rwx,g=,o=
