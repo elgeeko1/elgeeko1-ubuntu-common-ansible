@@ -1,0 +1,16 @@
+THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
+
+This project includes third-party software components, which are distributed under the
+following licenses. Full licenses and notices are provided in the
+[third-party-licenses](third-party-licenses) subdirectory.
+
+---
+
+Component: xronos_ubuntu_common_ansible
+Version: c2f5bb964ddb9aeadfd95600bc4e34eab54d098a (2025-04-28)
+License: BSD-3-Clause
+License text: https://opensource.org/license/bsd-3-clause
+Source: https://github.com/xronos-inc/xronos_ubuntu_common_ansible
+
+For the full license text, see:
+[third-party-licenses/xronos_ubuntu_common_ansbile_LICENSE](third-party-licenses/xronos_ubuntu_common_ansbile_LICENSE)

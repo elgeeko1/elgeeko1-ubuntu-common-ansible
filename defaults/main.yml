@@ -1,11 +1,29 @@
-# deploy Quad9 as the system (resolv) resolver?
-ubuntu_dns_quad9: false
-
-# deploy default system resolv.conf ?
-ubuntu_dns_system: false
-
+# SPDX-FileCopyrightText: (c) 2021-2025 Jeff C. Jensen
+# SPDX-License-Identifier: MIT
+#
+# Modifications Copyright (c) 2024 Xronos Inc.
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# This file contains portions from Jeff C. Jensen under MIT 
+# and modifications by Xronos Inc. under BSD-3-Clause.
+---
 # Ubuntu timezone
 ubuntu_timezone: America/Los_Angeles
 
 # Install and enable NTP service?
 ubuntu_ntp_enable: true
+
+# remove clutter from motd?
+ubuntu_trim_motd: false
+
+# apt upgrade packages?
+# values: no, always, once
+ubuntu_apt_upgrade: "once"
+
+# disable unattended upgrades?
+ubuntu_disable_unattended_upgrades: true
+
+## versions
+
+ubuntu_snapshot:
+ubuntu_python_version: 

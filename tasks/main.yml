@@ -1,19 +1,37 @@
+# SPDX-FileCopyrightText: (c) 2021-2025 Jeff C. Jensen
+# SPDX-License-Identifier: MIT
+#
+# Modifications Copyright (c) 2024 Xronos Inc.
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# This file contains portions from Jeff C. Jensen under MIT 
+# and modifications by Xronos Inc. under BSD-3-Clause.
 ---
 - name: apt update cache
+  become: true
   ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 3600 # 1 hr
     force_apt_get: true # aptitude may not be installed
+
+- name: apt prerequisites
+  ansible.builtin.import_tasks: apt.yml
+
+- name: Configure snapshots for all repositories that support them
+  when: ubuntu_snapshot
+  register: _snapshot
   become: true
+  ansible.builtin.copy:
+    dest: /etc/apt/apt.conf.d/50snapshot
+    content: "{{ ('APT::Snapshot \"' ~ ubuntu_snapshot ~ '\";') if ubuntu_snapshot else '' }}"
 
-- name: Configure DNS resolution
-  ansible.builtin.include_tasks: resolvconf.yml
-  when:
-    - (ubuntu_dns_quad9 | default(false) | bool) or
-      (ubuntu_dns_system | default(false) | bool)
+- name: apt update cache to apply snapshot change
+  become: true
+  ansible.builtin.apt:
+    update_cache: "{{ _snapshot.changed }}"
 
-- name: apt update
-  ansible.builtin.import_tasks: apt-update.yml
+- name: apt upgrade
+  ansible.builtin.import_tasks: upgrade.yml
 
 - name: python update
   ansible.builtin.import_tasks: python.yml
@@ -21,25 +39,17 @@
 - name: Install Ansible prerequisites
   ansible.builtin.import_tasks: ansible.yml
 
-- name: Configure admin users
-  ansible.builtin.import_tasks: users-admin.yml
-
 - name: Configure message of the day (motd)
-  ansible.builtin.import_tasks: login-motd.yml
+  ansible.builtin.include_tasks: login-motd.yml
+  when: ubuntu_trim_motd
+
+- name: Disable unattended upgrades
+  ansible.builtin.include_tasks: unattended-upgrades.yml
+  when: ubuntu_disable_unattended_upgrades
+    and ansible_distribution == 'Ubuntu'
 
 - name: Configure timezone and ntp
   ansible.builtin.import_tasks: time.yml
 
-- name: Query restart required
-  ansible.builtin.stat:
-    path: /var/run/reboot-required
-  register: stat_result
-  changed_when: stat_result.stat.exists
-
-- name: Restart system
-  ansible.builtin.reboot:
-    msg: "Ansible reboot"
-  become: true
-  when:
-    - stat_result.stat.exists
-    - inventory_hostname != "localhost"
+- name: Perform scheduled reboot
+  ansible.builtin.import_tasks: reboot.yml

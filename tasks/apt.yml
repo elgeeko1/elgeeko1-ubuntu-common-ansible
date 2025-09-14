@@ -7,28 +7,16 @@
 # This file contains portions from Jeff C. Jensen under MIT 
 # and modifications by Xronos Inc. under BSD-3-Clause.
 ---
-- name: apt install tzdata
+- name: apt install aptitude
   become: true
   ansible.builtin.apt:
     pkg:
-      - tzdata
- 
-- name: Set timezone
-  when: ubuntu_timezone | length > 0
-  become: true
-  community.general.timezone:
-    name: "{{ ubuntu_timezone }}"
-
-- name: Install ntp
-  when: ubuntu_ntp_enable
+      - aptitude
+  
+- name: apt install prerequisites
   become: true
   ansible.builtin.apt:
-    pkg: ntp
-
-- name: Enable ntp
-  when: ubuntu_ntp_enable
-  become: true
-  ansible.builtin.service:
-    name: ntp
-    state: started
-    enabled: true
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common

@@ -1,56 +1,40 @@
 # Ansible role for common Ubuntu maintenance and configuration
-This role is my personal playbook for configuring and maintaining
-Ubuntu hosts. Common tasks include:
+
+This role is a standard configuration for Ubuntu systems used at Xronos.
+
 - apt updates and package management
 - pip updates
 - timezone configuration
-- DNS configuration (optional)
 - prerequisites for common Ansible modules
 
-# Requirements
+## Requirements
+
 Provisioning host:
-- ansible 2.9 or later
+
+- ansible 2.15 or later
 
 Host that will be configured:
-- Ubuntu 18.04 or later
 
-# How to use this role
-### Method 1: Install using ansible-galaxy
+- Ubuntu 22.04 or 24.04
 
-The most robust way to install this role is to use ansible-galaxy,
-which is installed with ansible by default. ansible-galaxy is effectively a package manager for ansible. It installs roles
-from the community, or from private git repos, into your local machine for use in your playbooks.
+## How to use this role
 
-Start by adding this role to an ansible-galaxy dependency file. Typically this file lives alongside your playbook file and by convention is named `requirements.yml`.
+Add this role to your Ansible playbook file.
 
-Add the following section to `requirements.yml`:
-
-```
-roles:
-  - name: elgeeko1-ubuntu-common-ansible
-    src: https://github.com/elgeeko1/elgeeko1-ubuntu-common-ansible
-    version: main
+```yaml
+- name: configure ubuntu
+  role: xronos_ubuntu_common_ansible
 ```
 
-If there is already a `roles` section, simply append this role to
-add it as a dependency.
+## Variables
 
-Then, install the role using ansible-galaxy:
+- `ubuntu_apt_upgrade` Upgrade packages? Otherwise install packages only if not present. Defaults to `"once"` to upgrade once per host. Values are `"once", "always", "no"`.
+- `ubuntu_disable_unattended_upgrades` Disable unattended upgrades? Defaults to `true`.
+- `ubuntu_timezone` Timezone to set. Defaults to `America/Los_Angeles`.
+- `ubuntu_ntp_enable` Install and start NTP service. Defaults to `true`.
+- `ubuntu_trim_motd` Trim MOTD to minimal messages? Defaults to `false`.
 
-`ansible-galaxy install -r requirements.yml -v`
+## Versions
 
-### Method 2: Clone this repository into a `roles` directory
-
-Use this method if you plan to modify this role, or if for some
-reason the ansible-galaxy method fails.
-
-Starting from your playbook directory, change into the `roles`
-directory and clone:
-
-```
-$ ls
- > playbook.yml
- > roles/
-$ cd roles/
-roles$ git clone https://github.com/elgeeko1/elgeeko1-ubuntu-common-ansible
-```
+- `ubuntu_snapshot` Snapshot to use for ubuntu archives. Follows `YYYYMMDDTHHMMSSZ` format, for example `20230302T030400Z` for 03:04 UTC on 2 March 2023. Defaults to empty (do not configure snapshots).
+- `ubuntu_python_version` Version of Python3 package to install. Defaults to empty (latest).
