@@ -1,5 +1,9 @@
 # Ansible role for common Ubuntu maintenance and configuration
 
+> [!WARNING]
+> This role migrated to the Ansible Galaxy colleciton [elgeeko1/elgeeko1.linux](https://github.com/elgeeko1/elgeeko1.linux).
+The standalone role here is archived and is no longer maintained.
+
 This role is a standard configuration for Ubuntu systems used at Xronos.
 
 - apt updates and package management
